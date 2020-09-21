@@ -12,6 +12,9 @@ import shutil
 import datetime
 torch.backends.cudnn.benchmark = True
 
+from tqdm import tqdm
+from IPython.display import clear_output
+
 model = networks.__dict__[args.netName](
                                     channel = args.channels,
                                     filter_size = args.filter_size,
@@ -51,7 +54,7 @@ output_dir = args.frame_output_dir
 timestep = args.time_step
 time_offsets = [kk * timestep for kk in range(1, int(1.0 / timestep))]
 
-input_frame = args.start_frame - 1
+input_frame = args.start_frame
 loop_timer = AverageMeter()
 
 final_frame = args.end_frame
@@ -61,8 +64,7 @@ torch.set_grad_enabled(False)
 # we want to have input_frame between (start_frame-1) and (end_frame-2)
 # this is because at each step we read (frame) and (frame+1)
 # so the last iteration will actuall be (end_frame-1) and (end_frame)
-while input_frame < final_frame - 1:
-    input_frame += 1
+for input_frame in tqdm(range(input_frame,final_frame - 1)):
 
     start_time = time.time()
 
@@ -153,7 +155,9 @@ while input_frame < final_frame - 1:
     frames_left = final_frame - input_frame
     estimated_seconds_left = frames_left * loop_timer.avg
     estimated_time_left = datetime.timedelta(seconds=estimated_seconds_left)
-    print(f"****** Processed frame {input_frame} | Time per frame (avg): {loop_timer.avg:2.2f}s | Time left: {estimated_time_left} ******************" )
+    clear_output()
+    #print(f"****** Processed frame {input_frame} | Time per frame (avg): {loop_timer.avg:2.2f}s | Time left: {estimated_time_left} ******************" )
+    #clear_output()
 
 # Copying last frame
 last_frame_filename = os.path.join(frames_dir, str(str(final_frame).zfill(5))+'.png')
