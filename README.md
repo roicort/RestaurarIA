@@ -1,6 +1,6 @@
 # VideoResto
  
-Ready for Paperspace.com
+Ready for [Paperspace](paperspace.com)
 
 Notes:
  * DAIN requires a Nvidia GPU Card with 8GB (Min) for 480p 16GB (Min) for 720p
