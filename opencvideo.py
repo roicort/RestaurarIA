@@ -4,7 +4,6 @@ import os
 import numpy as np
 import glob
 from tqdm import tqdm
-import moviepy.editor as me
 
 def vid2img(file,output):
     cam = cv2.VideoCapture(file) 
