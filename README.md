@@ -8,4 +8,4 @@ Ready for [Paperspace](https://paperspace.com)
 Thanks to Paperspace for providing GPU Cloud Computing
 
 Notes: 
- * Long ZoomSM is unable to process long sequences of video (1m+)
+ * ZoomSM is unable to process long sequences of video (1m+)
